@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 from pygame.locals import *
 from subprocess import *
 os.environ["SDL_FBDEV"] = "/dev/fb1"
-os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
+os.environ["SDL_MOUSEDEV"] = "/dev/input/event2"
 os.environ["SDL_MOUSEDRV"] = "TSLIB"
 
 # Initialize pygame modules individually (to avoid ALSA errors) and hide mouse
