@@ -139,22 +139,22 @@ def button(number):
 	return
 
     if number == 2:
-        # snortbarn
-	if toggle_service("snortbarn"):
-	    make_button("       Snort", 260, 105, 55, 210, green)
-	    pygame.display.update()
-	else:
-	    make_button("       Snort", 260, 105, 55, 210, tron_light)
-	    pygame.display.update()
+##        # snortbarn
+##	if toggle_service("snortbarn"):
+##	    make_button("       Snort", 260, 105, 55, 210, green)
+##	    pygame.display.update()
+##	else:
+##	    make_button("       Snort", 260, 105, 55, 210, tron_light)
+##	    pygame.display.update()
 	return
 
     if number == 3:
-        # Pulledpork
-	pygame.quit()
-	cmd="/usr/bin/sudo /bin/bash " + os.environ["MENUDIR"] + "pulledpork.sh"
-	call(cmd, shell=True)
-	##run_cmd(cmd)
-	os.execv(__file__, sys.argv)
+##        # Pulledpork
+##	pygame.quit()
+##	cmd="/usr/bin/sudo /bin/bash " + os.environ["MENUDIR"] + "pulledpork.sh"
+##	call(cmd, shell=True)
+##	##run_cmd(cmd)
+##	os.execv(__file__, sys.argv)
 
     if number == 4:
         # openvas
@@ -230,10 +230,10 @@ if check_service("mysql"):
      make_button("      MySQL", 30, 105, 55, 210, green)
 else:
      make_button("      MySQL", 30, 105, 55, 210, tron_light)
-if check_service("snortbarn"):
-    make_button("       Snort", 260, 105, 55, 210, green)
-else:
-    make_button("       Snort", 260, 105, 55, 210, tron_light)
+##if check_service("snortbarn"):
+##    make_button("       Snort", 260, 105, 55, 210, green)
+##else:
+make_button("       Snort", 260, 105, 55, 210, tron_light)
 # Third Row buttons 3 and 4
 make_button("   PulledPork", 30, 180, 55, 210, tron_light)
 if check_service("openvas-manager"):
