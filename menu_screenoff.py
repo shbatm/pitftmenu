@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import pygame, os, sys, subprocess, time
+import pygame, os, sys, subprocess, time, os.path
 import RPi.GPIO as GPIO
 from pygame.locals import *
 from subprocess import *
@@ -14,9 +14,17 @@ pygame.font.init()
 pygame.display.init()
 pygame.mouse.set_visible(0)
 
-# Initialise GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
+## Initialise backlight control
+
+if os.path.isfile("/sys/class/backlight/soc:backlight/brightness"):
+    # kernel 4.4 STMP GPIO on/off for ada 3.5r
+    backlightControl="3.5r"
+else:
+    # GPIO 18 backlight control
+    # Initialise GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(18, GPIO.OUT)
+    backlightControl="GPIO18"
 
 
 def run_cmd(cmd):
@@ -27,17 +35,25 @@ def run_cmd(cmd):
 # Turn screen on
 def screen_on():
         pygame.quit()
-	backlight = GPIO.PWM(18, 1023)
-	backlight.start(100)
-	GPIO.cleanup()
+        if backlightControl == "3.5r":
+            process = subprocess.call("echo '1' > /sys/class/backlight/soc\:backlight/brightness", shell=True)
+        else:
+            backlight = GPIO.PWM(18, 1023)
+            backlight.start(100)
+            GPIO.cleanup()
+
         page=os.environ["MENUDIR"] + "menu_kali-1.py"
         os.execvp("python", ["python", page])
 
 
 # Turn screen off
 def screen_off():
-	backlight = GPIO.PWM(18, 0.1)
-	backlight.start(0)
+        if backlightControl == "3.5r":
+            process = subprocess.call("echo '0' > /sys/class/backlight/soc\:backlight/brightness", shell=True)
+        else:
+            backlight = GPIO.PWM(18, 0.1)
+            backlight.start(0)
+
         process = subprocess.call("setterm -term linux -back black -fore black -clear all", shell=True)
 
 
