@@ -138,7 +138,7 @@ def button(number):
 	    pygame.display.update()
 	return
 
-    if number == 2:
+##    if number == 2:
         # snortbarn
 ##	if toggle_service("snortbarn"):
 ##	    make_button("      Snort", 174, 65, 54, 145, green)
@@ -146,7 +146,7 @@ def button(number):
 ##	else:
 ##	    make_button("      Snort", 174, 65, 54, 145, tron_light)
 ##	    pygame.display.update()
-	return
+##	return
 
 ##    if number == 3:
 ##        # Pulledpork
@@ -233,9 +233,9 @@ else:
 ##if check_service("snortbarn"):
 ##    make_button("      Snort", 174, 65, 54, 145, green)
 ##else:
-make_button("      Snort", 174, 65, 54, 145, tron_light)
+make_button("      ", 174, 65, 54, 145, tron_light)
 # Third Row buttons 3 and 4
-make_button("  PulledPork", 21, 125, 54, 145, tron_light)
+make_button("      ", 21, 125, 54, 145, tron_light)
 if check_service("openvas-manager"):
     make_button("   OpenVAS", 174, 125, 54, 145, green)
 else:
