@@ -17,14 +17,21 @@ pygame.mouse.set_visible(0)
 def make_button(text, xpo, ypo, height, width, colour):
     font=pygame.font.Font(None,42)
     label=font.render(str(text), 1, (colour))
-    screen.blit(label,(xpo,ypo))
+    l_rect = label.get_rect()
+    l_rect.midtop = (xpo-10+(width/2), ypo)
+    screen.blit(label,l_rect)
     pygame.draw.rect(screen, blue, (xpo-10,ypo-10,width,height),5)
 
 # define function for printing text in a specific place with a specific colour
 def make_label(text, xpo, ypo, fontsize, colour):
     font=pygame.font.Font(None,fontsize)
     label=font.render(str(text), 1, (colour))
-    screen.blit(label,(xpo,ypo))
+    if xpo == -1: # xpo=-1 to center text
+        l_rect = label.get_rect()
+        l_rect.midtop = (240, ypo)
+    else:
+        l_rect = (xpo,ypo)
+    screen.blit(label,l_rect)
 
 # define function that checks for touch location
 def on_touch():
@@ -89,7 +96,7 @@ def run_cmd(cmd):
 
 # Define each button press action
 def button(number):
-    print "You pressed button ",number
+    print ("You pressed button ",number)
 
     if number == 1:
         # desktop
@@ -185,16 +192,17 @@ pi_hostname = run_cmd("hostname")
 pi_hostname = pi_hostname[:-1]
 # Buttons and labels
 # First Row Label
-make_label(pi_hostname + " - " +  get_ip(), 32, 30, 48, blue)
+make_label(pi_hostname.decode("utf-8") + " - " +  get_ip(), -1, 16, 38, blue)
+make_label("Second Line of Text Here", -1, 48, 38, blue)
 # Second Row buttons 3 and 4
-make_button("     Desktop", 30, 105, 55, 210, blue)
-make_button("    Terminal", 260, 105, 55, 210, blue)
+make_button("Desktop", 30, 105, 55, 210, blue)
+make_button("Terminal", 260, 105, 55, 210, blue)
 # Third Row buttons 5 and 6
-make_button(" Empty Button", 30, 180, 55, 210, blue)
-make_button(" WiFi Settings", 260, 180, 55, 210, blue)
+make_button("Empty Button", 30, 180, 55, 210, blue)
+make_button("WiFi Settings", 260, 180, 55, 210, blue)
 # Fourth Row Buttons
-make_button("      Reboot", 30, 255, 55, 210, blue)
-make_button("   Shutdown", 260, 255, 55, 210, blue)
+make_button("Reboot", 30, 255, 55, 210, blue)
+make_button("Shutdown", 260, 255, 55, 210, blue)
 
 # LBO Pin from Powerboost
 RPi.GPIO.setmode (RPi.GPIO.BCM)

@@ -43,7 +43,7 @@ def screen_on():
             GPIO.cleanup()
 
         page=os.environ["MENUDIR"] + "menu_kali-1.py"
-        os.execvp("python", ["python", page])
+        os.execvp("python3", ["python3", page])
 
 
 # Turn screen off
@@ -53,9 +53,6 @@ def screen_off():
         else:
             backlight = GPIO.PWM(18, 0.1)
             backlight.start(0)
-
-        process = subprocess.call("setterm -term linux -back black -fore black -clear all", shell=True)
-
 
 #While loop to manage touch screen inputs
 screen_off()
